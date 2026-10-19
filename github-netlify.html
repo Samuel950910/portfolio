@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub 與 Netlify 連結的方法｜熊振勛</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 導覽列 -->
+  <header class="nav">
+    <a href="index.html" class="logo">熊振勛</a>
+    <nav>
+      <a href="index.html#projects">作品</a>
+      <a href="index.html#about">關於我</a>
+      <a href="index.html#contact">聯絡</a>
+    </nav>
+  </header>
+
+  <!-- 作品說明 -->
+  <section class="article">
+    <a href="index.html#projects" class="back">← 回到作品列表</a>
+    <h1>GitHub 與 Netlify 連結的方法</h1>
+    <p class="lead">把個人網頁放上 GitHub，再讓 Netlify 自動部署。之後每次 <code>git push</code>，網站就會自動更新，不需要手動上傳檔案。</p>
+
+    <h2>1. 設定 Git 身分</h2>
+    <p>第一次使用 Git 時，先設定名字與 Email，之後每次提交都會記錄是誰做的修改。</p>
+    <pre><code>git config --global user.name "你的名字"
+git config --global user.email "你的 Email"</code></pre>
+
+    <h2>2. 在 GitHub 建立 repository</h2>
+    <ol>
+      <li>登入 GitHub，點右上角「+」→「New repository」。</li>
+      <li>名稱填 <code>portfolio</code>，不要勾選 README、.gitignore 或 license。</li>
+      <li>按「Create repository」。</li>
+    </ol>
+
+    <h2>3. 把網頁上傳到 GitHub</h2>
+    <p>在網頁資料夾裡打開 Git Bash，輸入：</p>
+    <pre><code>git init
+git add .
+git commit -m "第一版個人網頁"
+git branch -M main
+git remote add origin https://github.com/你的帳號/portfolio.git
+git push -u origin main</code></pre>
+    <p>第一次推送時會跳出 GitHub 登入視窗，登入後就會開始上傳。</p>
+
+    <h2>4. 在 Netlify 連結 GitHub</h2>
+    <ol>
+      <li>到 Netlify 用 GitHub 帳號登入。</li>
+      <li>點「Add new site」→「Import an existing project」→ 選「GitHub」。</li>
+      <li>授權後選擇 <code>portfolio</code> repository。</li>
+      <li>Branch 選 <code>main</code>；純 HTML 網頁的 Build command 留空，Publish directory 也留空（代表根目錄）。</li>
+      <li>按「Deploy」，等狀態變成 Published，就會得到一個網址。</li>
+    </ol>
+
+    <h2>5. 之後更新網站</h2>
+    <p>修改檔案並存檔後，輸入三行指令：</p>
+    <pre><code>git add .
+git commit -m "說明這次改了什麼"
+git push</code></pre>
+    <p>Netlify 偵測到 GitHub 有新提交，會自動重新部署，在 Deploys 頁面可以看到每次更新的紀錄。</p>
+
+    <h2>成果</h2>
+    <ul>
+      <li>網頁原始碼放在 GitHub，有完整的修改紀錄。</li>
+      <li>網站由 Netlify 自動部署，改完 push 就上線。</li>
+      <li>流程固定為：改檔存檔 → 預覽 → 三行指令 → 看網站。</li>
+    </ul>
+  </section>
+
+  <footer>© 2026 你的名字</footer>
+
+</body>
+</html>
